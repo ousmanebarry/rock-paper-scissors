@@ -3,7 +3,7 @@
 // Elements on webpage
 let userScoreEl = document.getElementById('user-score');
 let compScoreEl = document.getElementById('computer-score');
-let actionMsg = document.getElementById('action-message');
+let restartMsg = document.getElementById('again');
 let resultMsg = document.getElementById('result-message');
 
 const paperMove = document.getElementById('p');
@@ -13,6 +13,7 @@ const rockMove = document.getElementById('r');
 paperMove.addEventListener('click', pMove);
 scissorsMove.addEventListener('click', sMove);
 rockMove.addEventListener('click', rMove);
+restartMsg.addEventListener('click', restart);
 
 // Global variables
 let userScore = 0;
@@ -96,4 +97,12 @@ function rMove() {
       draw('Rock', compMove, 'r');
       break;
   }
+}
+
+function restart() {
+  userScore = 0;
+  compScore = 0;
+  compScoreEl.textContent = '0';
+  userScoreEl.textContent = '0';
+  resultMsg.textContent = 'Make your first move!';
 }
