@@ -19,21 +19,51 @@ let userScore = 0;
 let compScore = 0;
 const moves = ['paper', 'scissors', 'rock'];
 
+// Win
+function win(user, comp, userChoice) {
+  userScore++;
+  userScoreEl.textContent = userScore;
+  resultMsg.textContent = `${user} vs ${comp}. You win.`;
+  document.getElementById(userChoice).classList.add('green-glow');
+  setTimeout(
+    () => document.getElementById(userChoice).classList.remove('green-glow'),
+    500
+  );
+}
+
+// Lose
+function lose(user, comp, userChoice) {
+  compScore++;
+  compScoreEl.textContent = compScore;
+  resultMsg.textContent = `${user} vs ${comp}. You lose.`;
+  document.getElementById(userChoice).classList.add('red-glow');
+  setTimeout(
+    () => document.getElementById(userChoice).classList.remove('red-glow'),
+    500
+  );
+}
+
+// Draw
+function draw(user, comp, userChoice) {
+  resultMsg.textContent = `${user} vs ${comp}. It's a draw.`;
+  document.getElementById(userChoice).classList.add('gray-glow');
+  setTimeout(
+    () => document.getElementById(userChoice).classList.remove('gray-glow'),
+    500
+  );
+}
+
 function pMove() {
   const compMove = moves[Math.trunc(Math.random() * 3)];
   switch (compMove) {
     case 'rock':
-      userScore++;
-      userScoreEl.textContent = userScore;
-      resultMsg.textContent = `Paper vs ${compMove}. You win.`;
+      win('Paper', compMove, 'p');
       break;
     case 'scissors':
-      compScore++;
-      compScoreEl.textContent = compScore;
-      resultMsg.textContent = `Paper vs ${compMove}. You lose.`;
+      lose('Paper', compMove, 'p');
       break;
     case 'paper':
-      resultMsg.textContent = `Paper vs ${compMove}. It's a draw.`;
+      draw('Paper', compMove, 'p');
       break;
   }
 }
@@ -41,18 +71,14 @@ function pMove() {
 function sMove() {
   const compMove = moves[Math.trunc(Math.random() * 3)];
   switch (compMove) {
-    case 'rock':
-      compScore++;
-      compScoreEl.textContent = compScore;
-      resultMsg.textContent = `Scissors vs ${compMove}. You lose.`;
-      break;
     case 'paper':
-      userScore++;
-      userScoreEl.textContent = userScore;
-      resultMsg.textContent = `Scissors vs ${compMove}. You win.`;
+      win('Scissors', compMove, 's');
+      break;
+    case 'rock':
+      lose('Scissors', compMove, 's');
       break;
     case 'scissors':
-      resultMsg.textContent = `Scissors vs ${compMove}. It's a draw.`;
+      draw('Scissors', compMove, 's');
       break;
   }
 }
@@ -61,39 +87,13 @@ function rMove() {
   const compMove = moves[Math.trunc(Math.random() * 3)];
   switch (compMove) {
     case 'scissors':
-      userScore++;
-      userScoreEl.textContent = userScore;
-      resultMsg.textContent = `Rock vs ${compMove}. You win.`;
+      win('Rock', compMove, 'r');
       break;
     case 'paper':
-      compScore++;
-      compScoreEl.textContent = compScore;
-      resultMsg.textContent = `Rock vs ${compMove}. You lose.`;
+      lose('Rock', compMove, 'r');
       break;
     case 'rock':
-      resultMsg.textContent = `Rock vs ${compMove}. It's a draw.`;
+      draw('Rock', compMove, 'r');
       break;
   }
 }
-
-/*
-
-RP - Rock vs Paper (Paper wins)
-
-PR - Paper vs Rock (Paper wins)
-
-PS - Paper vs Scissors (Scissors wins)
-
-SP - Scissors vs Paper (Scissors wins)
- 
-RS - Rock vs Scissors (Rock wins)
-
-SR - Scissors vs Rock (Rock wins)
- 
-PP - Paper vs Paper (No one wins)
-
-RR - Rock vs Rock (No one wins)
-
-SS - Scissors vs Scissors (No one wins)
-
-*/
