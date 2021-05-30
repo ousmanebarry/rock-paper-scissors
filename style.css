@@ -141,3 +141,15 @@ footer > p {
 .play-again {
   text-align: center;
 }
+
+.green {
+  text-shadow: 1px 1px 10px #4dcc7d, 1px 1px 10px #31b43a;
+}
+
+.red {
+  text-shadow: 1px 1px 10px #fc121b, 1px 1px 10px #d01115;
+}
+
+.gray {
+  text-shadow: 1px 1px 10px #464647, 1px 1px 10px #25292b;
+}

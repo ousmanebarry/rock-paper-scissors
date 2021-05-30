@@ -13,18 +13,33 @@ const rockMove = document.getElementById('r');
 paperMove.addEventListener('click', pMove);
 scissorsMove.addEventListener('click', sMove);
 rockMove.addEventListener('click', rMove);
-restartMsg.addEventListener('click', restart);
+restartMsg.addEventListener('click', init);
 
 // Global variables
-let userScore = 0;
-let compScore = 0;
+let userScore, compScore;
 const moves = ['paper', 'scissors', 'rock'];
+
+function init() {
+  userScore = 0;
+  compScore = 0;
+  compScoreEl.textContent = '0';
+  userScoreEl.textContent = '0';
+  resultMsg.textContent = 'Make your first move!';
+  resultMsg.classList.remove('green');
+  resultMsg.classList.remove('red');
+  resultMsg.classList.remove('gray');
+}
+
+init();
 
 // Win
 function win(user, comp, userChoice) {
+  resultMsg.classList.remove('gray');
+  resultMsg.classList.remove('red');
   userScore++;
   userScoreEl.textContent = userScore;
   resultMsg.textContent = `${user} vs ${comp}. You win.`;
+  resultMsg.classList.add('green');
   document.getElementById(userChoice).classList.add('green-glow');
   setTimeout(
     () => document.getElementById(userChoice).classList.remove('green-glow'),
@@ -34,9 +49,12 @@ function win(user, comp, userChoice) {
 
 // Lose
 function lose(user, comp, userChoice) {
+  resultMsg.classList.remove('gray');
+  resultMsg.classList.remove('green');
   compScore++;
   compScoreEl.textContent = compScore;
   resultMsg.textContent = `${user} vs ${comp}. You lose.`;
+  resultMsg.classList.add('red');
   document.getElementById(userChoice).classList.add('red-glow');
   setTimeout(
     () => document.getElementById(userChoice).classList.remove('red-glow'),
@@ -46,7 +64,10 @@ function lose(user, comp, userChoice) {
 
 // Draw
 function draw(user, comp, userChoice) {
+  resultMsg.classList.remove('red');
+  resultMsg.classList.remove('green');
   resultMsg.textContent = `${user} vs ${comp}. It's a draw.`;
+  resultMsg.classList.add('gray');
   document.getElementById(userChoice).classList.add('gray-glow');
   setTimeout(
     () => document.getElementById(userChoice).classList.remove('gray-glow'),
@@ -97,12 +118,4 @@ function rMove() {
       draw('Rock', compMove, 'r');
       break;
   }
-}
-
-function restart() {
-  userScore = 0;
-  compScore = 0;
-  compScoreEl.textContent = '0';
-  userScoreEl.textContent = '0';
-  resultMsg.textContent = 'Make your first move!';
 }
